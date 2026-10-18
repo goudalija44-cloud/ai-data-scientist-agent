@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Data Scientist Agent</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <div class="brand-icon">AI</div>
+            <div>
+                <h1>AI Data Scientist Agent</h1>
+                <p>Your intelligent data analysis workspace</p>
+            </div>
+        </div>
+
+        <div class="connection-status">
+            <span class="status-dot"></span>
+            <span id="apiStatus">Checking API...</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="welcome-section">
+            <p class="eyebrow">DATA ANALYTICS WORKSPACE</p>
+            <h2>Understand your data with confidence.</h2>
+            <p>
+                Upload a CSV dataset to explore its structure, identify
+                data-quality issues, and discover statistical insights.
+            </p>
+        </section>
+
+        <section class="upload-card" aria-labelledby="uploadHeading">
+            <div class="section-heading">
+                <div>
+                    <h3 id="uploadHeading">Analyze your dataset</h3>
+                    <p>Select a CSV file to begin your analysis.</p>
+                </div>
+                <span class="step-label">STEP 01</span>
+            </div>
+
+            <form id="uploadForm">
+                <label for="fileInput" class="upload-area" id="uploadArea">
+                    <div class="upload-icon" aria-hidden="true">↑</div>
+                    <strong>Choose a CSV file</strong>
+                    <span>Click here to select a dataset from your computer</span>
+                    <span class="file-requirements">
+                        CSV format · Maximum size 50 MB
+                    </span>
+                </label>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    name="file"
+                    accept=".csv,text/csv"
+                    required
+                >
+
+                <div id="selectedFile" class="selected-file" hidden>
+                    <span id="fileName"></span>
+                    <button type="button" id="removeFile" class="remove-button">
+                        Remove
+                    </button>
+                </div>
+
+                <button type="submit" id="analyzeButton" class="primary-button">
+                    Analyze dataset
+                    <span aria-hidden="true">→</span>
+                </button>
+
+                <p id="uploadMessage" class="message" role="status"
+                   aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="resultsSection" class="results-section" hidden>
+            <div class="results-heading">
+                <div>
+                    <p class="eyebrow">ANALYSIS RESULTS</p>
+                    <h3>Your dataset report</h3>
+                    <p id="datasetName"></p>
+                </div>
+
+                <button type="button" id="downloadButton" class="secondary-button">
+                    Download JSON report
+                </button>
+            </div>
+
+            <div id="overviewCards" class="overview-grid"></div>
+
+            
+<section class="dashboard-section" id="visualizationSection">
+    <div class="section-heading">
+        <h2>Data Visualizations</h2>
+        <p>Explore the distributions and relationships in your dataset.</p>
+    </div>
+
+    <div class="chart-grid">
+        <article class="chart-card">
+            <h3>Numerical Distribution</h3>
+            <label for="histogramColumn">Select numerical column</label>
+            <select id="histogramColumn">
+                <option value="">Choose a column</option>
+            </select>
+            <div id="histogramChart" class="chart-container"></div>
+        </article>
+
+        <article class="chart-card">
+            <h3>Category Breakdown</h3>
+            <label for="categoryColumn">Select categorical column</label>
+            <select id="categoryColumn">
+                <option value="">Choose a column</option>
+            </select>
+            <div id="categoryChart" class="chart-container"></div>
+        </article>
+
+        <article class="chart-card chart-card-wide">
+            <h3>Correlation Heatmap</h3>
+            <p class="chart-description">
+                Explore relationships between numerical columns.
+            </p>
+            <div id="correlationChart" class="chart-container"></div>
+        </article>
+    </div>
+</section>
+
+
+<section class="dashboard-section" id="mlExperimentSection">
+    <div class="section-heading">
+        <h2>Machine Learning Experiments</h2>
+        <p>Choose a target column, configure a baseline experiment, and evaluate the model.</p>
+    </div>
+
+    <div class="chart-card ml-experiment-card">
+        <form id="mlExperimentForm">
+            <div class="ml-form-grid">
+                <div>
+                    <label for="mlTargetColumn">Target column</label>
+                    <select id="mlTargetColumn" name="target_column" required>
+                        <option value="">Analyze a dataset first</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="mlTask">Prediction task</label>
+                    <select id="mlTask" name="task" required>
+                        <option value="classification">Classification</option>
+                        <option value="regression">Regression</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="mlTestSize">Test data proportion</label>
+                    <select id="mlTestSize" name="test_size">
+                        <option value="0.2">20% test data</option>
+                        <option value="0.25">25% test data</option>
+                        <option value="0.3">30% test data</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" id="runMLButton" disabled>
+                Run ML Experiment
+            </button>
+
+            <p id="mlStatus" role="status" aria-live="polite">
+                Upload a CSV dataset before running an experiment.
+            </p>
+        </form>
+
+        <div id="mlResults" hidden>
+            <h3>Experiment Results</h3>
+            <div id="mlMetrics" class="ml-metrics-grid"></div>
+            <div id="mlDetails"></div>
+        </div>
+    </div>
+</section>
+
+
+
+            <section class="report-card">
+                <h4>Dataset columns</h4>
+                <div id="columnsContainer"></div>
+            </section>
+
+            <section class="report-card">
+                <h4>Data quality</h4>
+                <div id="qualityContainer"></div>
+            </section>
+
+            <section class="report-card">
+                <h4>Statistical insights</h4>
+                <div id="insightsContainer"></div>
+            </section>
+
+            <details class="report-card raw-report">
+                <summary>View complete JSON report</summary>
+                <pre id="rawReport"></pre>
+            </details>
+        </section>
+
+        <footer class="app-footer">
+            <p>AI Data Scientist Agent · Portfolio Project</p>
+            <p>Analysis results are generated by your local API.</p>
+        </footer>
+    </main>
+</body>
+</html>

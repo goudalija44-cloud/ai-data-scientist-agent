@@ -1,4 +1,8 @@
-panads
+pandas
 numpy
 matplotlib
 scikit-learn
+pytest
+fastapi
+uvicorn
+httpx

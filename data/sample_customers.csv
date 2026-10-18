@@ -1,0 +1,7 @@
+Customer_ID,Age,Monthly_Spend,Plan
+101,25.0,1200.0,Basic
+102,32.0,2500.0,Premium
+103,,1800.0,Basic
+104,45.0,,Premium
+104,45.0,,Premium
+105,29.0,2100.0,Basic
