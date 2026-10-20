@@ -9,6 +9,17 @@ An end-to-end machine learning platform for exploring datasets, identifying data
 - **Health Check:** [Check API Status](https://ai-data-scientist-agent-api.onrender.com/health)
 - **GitHub Repository:** [View Source Code](https://github.com/goudalija44-cloud/ai-data-scientist-agent)
 
+## Application Screenshots
+
+### Main Dashboard
+![AI Data Scientist Agent Dashboard](screenshots/dashboard.png)
+
+### Dataset Analysis
+![Dataset Analysis and Visualizations](screenshots/data-analysis.png)
+
+### Model Training and Evaluation
+![Machine Learning Model Results](screenshots/model-results.png)
+
 ## Features
 
 - Upload CSV datasets for analysis.
