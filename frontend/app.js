@@ -1,4 +1,5 @@
 const API_BASE_URL = "http://127.0.0.1:8000";
+
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 // DOM elements
