@@ -17,16 +17,30 @@ app = FastAPI(
     version="0.2.0",
 )
 
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=[
+#         "http://127.0.0.1:5500",
+#         "http://localhost:5500",
+#     ],
+#     allow_credentials=False,
+#     allow_methods=["GET", "POST"],
+#     allow_headers=["*"],
+# )
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://127.0.0.1:5500",
         "http://localhost:5500",
+        "https://ai-data-scientist-agent-frontend-my5quuoje-goudalija44-cloud.vercel.app",
     ],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
 
 MAX_UPLOAD_BYTES = 50 * 1024 * 1024
 
