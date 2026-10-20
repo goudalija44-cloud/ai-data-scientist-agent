@@ -1,95 +1,59 @@
 # AI Data Scientist Agent
 
-An interactive data analysis application that helps users explore CSV datasets, identify data-quality issues, discover patterns, visualize results, and train baseline machine learning models.
+An end-to-end machine learning platform for exploring datasets, identifying data-quality issues, generating visual insights, and training baseline ML models through a web interface.
 
-The project combines data analysis, machine learning, and a web-based interface, with plans to add AI-assisted explanations grounded in computed evidence.
+## Live Demo
+
+- **Frontend:** [Try the AI Data Scientist Agent](https://ai-data-scientist-agent-frontend-my5quuoje-goudalija44-cloud.vercel.app/)
+- **Backend API:** [Render API](https://ai-data-scientist-agent-api.onrender.com)
+- **Health Check:** [Check API Status](https://ai-data-scientist-agent-api.onrender.com/health)
+- **GitHub Repository:** [View Source Code](https://github.com/goudalija44-cloud/ai-data-scientist-agent)
 
 ## Features
 
-### Data Analysis
-- Automated dataset profiling
-- Missing-value and duplicate detection
-- Constant-column and potential identifier detection
-- Numeric and categorical statistical summaries
-- Evidence-based analytical insights
-- Correlation analysis
-
-### Data Visualization
-- Interactive data exploration through a web interface
-- Numeric distribution charts
-- Categorical breakdown charts
-- Correlation heatmaps using Plotly
-
-### Machine Learning
-- Baseline classification using Logistic Regression
-- Baseline regression using Ridge Regression
-- Numeric and categorical preprocessing
-- Missing-value imputation
-- Feature scaling and categorical encoding
-- Classification and regression evaluation metrics
-- Confusion matrix and per-class classification metrics
-- Warnings about limitations on small datasets
-
-### API and Interface
-- FastAPI backend
-- CSV upload and analysis endpoint
-- Machine learning training endpoint
-- HTML, CSS, and JavaScript frontend
+- Upload CSV datasets for analysis.
+- Inspect dataset structure, columns, data types, and summary statistics.
+- Identify data-quality issues and missing values.
+- Generate visualizations to explore data distributions and relationships.
+- Run baseline machine learning workflows for classification and regression.
+- Evaluate regression models using MAE, RMSE, and R².
+- Evaluate classification models using relevant classification metrics and a confusion matrix.
+- Access analysis and training functionality through a FastAPI backend.
+- Use a browser-based frontend connected to a separately deployed API.
+- Validate uploaded data and handle invalid inputs.
 
 ## Technology Stack
 
-| Technology | Purpose |
+| Area | Technologies |
 |---|---|
-| Python | Core application logic |
-| Pandas and NumPy | Data processing and numerical analysis |
-| Scikit-learn | Preprocessing and baseline machine learning |
-| FastAPI | Backend API |
-| Uvicorn | Local API server |
-| HTML, CSS, JavaScript | Frontend interface |
-| Plotly | Interactive visualizations |
-| Pytest | Automated testing |
+| Programming language | Python |
+| Data analysis | Pandas, NumPy |
+| Machine learning | Scikit-learn |
+| Visualization | Matplotlib |
+| Backend | FastAPI, Uvicorn |
+| Frontend | HTML, CSS, JavaScript |
+| API testing | HTTPX, Pytest |
+| Frontend hosting | Vercel |
+| Backend hosting | Render |
+| Version control | Git, GitHub |
 
-## Project Structure
+## Architecture
 
-```text
-ai-data-scientist-agent/
-├── data/
-│   ├── sample_customers.csv
-│   └── sample_ml_classification.csv
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── app.js
-├── notebooks/
-│   └── AI_Data_Scientist_Agent_Phase1.ipynb
-├── src/
-│   ├── analysis_engine.py
-│   ├── analysis_pipeline.py
-│   ├── api.py
-│   ├── data_loader.py
-│   ├── data_profiler.py
-│   ├── data_quality.py
-│   ├── generate_report.py
-│   ├── insights_engine.py
-│   ├── inspect_dataset.py
-│   ├── ml_engine.py
-│   ├── run_dataset_analysis.py
-│   ├── run_full_analysis.py
-│   └── run_ml_experiment.py
-├── tests/
-├── reports/
-├── .gitignore
-├── README.md
-└── requirements.txt
-```
+1. **Frontend:** The user uploads a CSV file and selects an analysis or training task.
+2. **API:** The frontend sends the request to the FastAPI backend.
+3. **Data processing:** The backend validates the uploaded data and performs the requested workflow.
+4. **Machine learning:** Supported classification or regression workflows train and evaluate baseline models.
+5. **Results:** The frontend presents analysis summaries, metrics, and visualizations.
 
-## Getting Started
+## API Endpoints
 
-### Prerequisites
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/health` | GET | Check API health |
+| `/analyze` | POST | Analyze an uploaded dataset |
+| `/train` | POST | Run a supported model-training workflow |
 
-- Python installed on your system
-- Git
-- Visual Studio Code or another Python-compatible editor
+## Run Locally
 
 ### 1. Clone the repository
 
@@ -98,91 +62,73 @@ git clone https://github.com/goudalija44-cloud/ai-data-scientist-agent.git
 cd ai-data-scientist-agent
 ```
 
-### 2. Create a virtual environment
+### 2. Create and activate a virtual environment
 
-**Windows:**
+Windows PowerShell:
 
-```bat
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 ```
-
-If the `python` command is unavailable, use your installed Python executable's full path.
 
 ### 3. Install dependencies
 
 ```bash
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-### 4. Start the FastAPI backend
-
-From the repository root:
+### 4. Start the backend
 
 ```bash
-python -m uvicorn src.api:app --reload
+uvicorn src.api:app --reload
 ```
 
-The API will normally be available at:
+The API will be available at `http://127.0.0.1:8000`.
 
-`http://127.0.0.1:8000`
-
-Interactive API documentation:
-
-`http://127.0.0.1:8000/docs`
+Interactive API documentation is available at `http://127.0.0.1:8000/docs`.
 
 ### 5. Open the frontend
 
-With the backend running, open `frontend/index.html` in your browser or serve the `frontend` directory using a local static web server.
+Serve the `frontend` directory using a local development server, such as the VS Code Live Server extension. Open the local frontend URL in your browser.
 
-If the browser blocks API requests, check the backend's CORS configuration and serve the frontend from a local HTTP origin permitted by the API.
+## Testing
 
-## API Endpoints
-
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/health` | Check API health |
-| POST | `/analyze` | Upload and analyze a CSV dataset |
-| POST | `/train` | Train and evaluate a baseline ML model |
-
-The `/train` endpoint accepts a CSV file, target column, task type, test size, and random state.
-
-## Running Tests
-
-From the project root, run:
+Run the automated test suite with:
 
 ```bash
 python -m pytest -q
 ```
 
-The current development test run passed **44 tests**. Re-run the tests after making changes to confirm the current result.
+The project previously passed 44 tests. Run the command again after changes to verify the current version.
 
-## Current Project Status
+## Deployment
 
-**Implemented in the current development version**
-- CSV loading and validation
-- Dataset profiling and data-quality checks
-- Statistical analysis and analytical insights
-- Visualization data and frontend charts
-- Baseline classification and regression
-- FastAPI endpoints
-- Automated tests
+- The frontend is hosted on Vercel.
+- The FastAPI backend is hosted on Render.
+- Cross-Origin Resource Sharing (CORS) is configured to allow the deployed frontend origin.
+- The frontend communicates with the backend through HTTP API requests.
 
-**Planned improvements**
-- AI-assisted explanations grounded in computed results
-- More robust model evaluation and experiment tracking
-- Additional datasets and edge-case testing
-- Deployment and a publicly accessible demo
-- Improved documentation, screenshots, and portfolio presentation
+## Project Goals
 
-## Limitations
+This project demonstrates practical skills in:
 
-- Baseline models are intended for initial evaluation, not production use.
-- Results depend on dataset quality, target selection, feature suitability, and dataset size.
-- Model metrics alone do not establish that a model generalizes to unseen real-world data.
-- The planned AI-assisted explanation layer and public deployment should not be considered complete until implemented and tested.
+- Data analysis and preprocessing
+- Data-quality validation
+- Baseline machine learning
+- Model evaluation
+- REST API development
+- Frontend-to-backend integration
+- Automated testing
+- Cloud deployment and Git-based development
+
+## Future Improvements
+
+- Add more configurable machine learning algorithms.
+- Improve automated model selection and comparison.
+- Add explainability tools for model predictions.
+- Introduce experiment tracking and downloadable reports.
+- Expand testing and production monitoring.
 
 ## Disclaimer
 
-This project is under development. Features and results may change as the application evolves. Verify analytical findings and model performance before using them to make consequential decisions.
+This project provides exploratory data analysis and baseline machine learning workflows. Model results depend on dataset quality, feature selection, and the suitability of the selected algorithm. It is intended for learning and demonstration, not as a substitute for expert review in high-stakes applications.
