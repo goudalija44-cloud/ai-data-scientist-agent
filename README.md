@@ -20,6 +20,22 @@ An end-to-end machine learning platform for exploring datasets, identifying data
 ### Model Training and Evaluation
 ![Machine Learning Model Results](screenshots/model-results.png)
 
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    A["User"] --> B["Frontend — Vercel<br/>HTML, CSS, JavaScript"]
+    B -->|"HTTP requests"| C["FastAPI Backend — Render"]
+    C --> D["Input Validation"]
+    D --> E["Data Processing — Pandas, NumPy"]
+    E --> F["ML Workflows — Scikit-learn"]
+    F --> G["Evaluation Metrics and Results"]
+    G --> H["API Response"]
+    H --> B
+    B --> I["Visualizations and Results UI"]
+```
+
 ## Features
 
 - Upload CSV datasets for analysis.
